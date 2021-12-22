@@ -37,16 +37,18 @@ jobs:
           url: https://github.com/${{github.repository}}
           manifest: https://raw.githubusercontent.com/${{github.repository}}/${{github.event.repository.name}}-next/module.json
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
-      
+          
       # Pre-release: commit module.json so latest download is updated
-      - name: Update Live Pre-release Manifest
+      - name: Push NEXT manifest for pre-release
         if: "github.event.release.prerelease"
-        id: update_prerel_manifest
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          message: '${{github.event.release.tag_name}} preview manifest'
-          branch: 'refs/heads/${{github.event.repository.name}}-next'
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: ${{github.event.repository.name}}-next # The branch name where you want to push the assets
+          FOLDER: "" # The directory where your assets are generated
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          MESSAGE: "${{github.event.release.tag_name}} manifest" # The commit message
+
       # Create a zip file with all files required by the module to add to the release
       - run: zip -r ./module.zip module.json LICENSE scripts/ lang/ 
 
