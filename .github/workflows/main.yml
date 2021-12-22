@@ -39,15 +39,18 @@ jobs:
           url: https://github.com/${{github.repository}}
           manifest: https://raw.githubusercontent.com/${{github.repository}}/${{github.event.repository.name}}-next/module.json
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
-     
-      - name: Prepare repository
+      
+      # Pre-release: commit module.json so latest download is updated
+      - name: Prepare pre-release branch
+        if: "github.event.release.prerelease"
         run: |
          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
          git pull origin "${{github.event.repository.name}}-next"
          git checkout "${{github.event.repository.name}}-next"
-         git add --all
-       
-      # Pre-release: commit module.json so latest download is updated
+         git add module.json
+         git commit -m "${{github.event.release.tag_name}} manifest"
+         git push
+      
       - name: Update Live Pre-release Manifest
         if: "github.event.release.prerelease"
         id: update_prerel_manifest
