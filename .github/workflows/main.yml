@@ -40,21 +40,7 @@ jobs:
           manifest: https://raw.githubusercontent.com/${{github.repository}}/${{github.event.repository.name}}-next/module.json
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
      
-      - name: Prepare repository
-        run: |
-         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-         git checkout origin "${{github.event.repository.name}}-next"
-         git add --all
-       
-      # Pre-release: commit module.json so latest download is updated
-      - name: Update Live Pre-release Manifest
-        if: "github.event.release.prerelease"
-        id: update_prerel_manifest
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          message: '${{github.event.release.tag_name}} manifest'
-          branch: '${{github.event.repository.name}}-next'
+
 
       # Create a zip file with all files required by the module to add to the release
       - run: zip -r ./module.zip module.json LICENSE scripts/ lang/ 
@@ -88,3 +74,14 @@ jobs:
           artifacts: './module.json, ./module.zip'
           tag: ${{ github.event.release.tag_name }}
           body: ${{ github.event.release.body }}
+          
+      #update next branch
+      - name: Prepare repository
+        if: "github.event.release.prerelease"
+        run: |
+          git remote set-url origin ***github.com/$GITHUB_REPOSITORY
+          git pull -f origin "test-repo-next"
+          git checkout "test-repo-next"
+          git add module.json
+          git commit -m "2.0.!25 manifest"
+          git push -f
