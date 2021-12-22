@@ -81,8 +81,9 @@ jobs:
         run: |
          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
          git status
+         git add module.json
+         git clean -f
          git pull --rebase origin "${{github.event.repository.name}}-next"
          git checkout origin "${{github.event.repository.name}}-next"
-         git add module.json
          git commit -m "2.0.!25 manifest"
          git push -f
