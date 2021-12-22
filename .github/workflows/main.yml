@@ -9,6 +9,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+         fetch-depth: 0
      # - name: Extract branch name
      #   shell: bash
      #   run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
@@ -17,8 +19,8 @@ jobs:
         id: branch_name
         run: |
          raw=$(git branch -r --contains ${{ github.ref }})
-         branch=${raw/origin\/}
-         echo ##[set-output name=branch;]$branch
+         branch=${raw##*/}
+         echo "BRANCH=$branch" >> $GITHUB_ENV
       # Substitute the Manifest and Download URLs in the module.json
       # for a FULL RELEASE
       - name: Substitute Manifest and Download Links For Versioned Ones
