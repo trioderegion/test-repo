@@ -27,7 +27,7 @@
     ],
     "socket": true,
     "url": "https://github.com/trioderegion/test-repo",
-    "manifest": "https://raw.githubusercontent.com/trioderegion/test-repo//module.json",
+    "manifest": "https://raw.githubusercontent.com/trioderegion/test-repo/v10-dev/module.json",
     "download": "https://github.com/trioderegion/test-repo/releases/download/2.0.!5/module.zip",
     "minimumCoreVersion": "0.8.5",
     "compatibleCoreVersion": "0.8.9"
