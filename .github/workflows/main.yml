@@ -87,6 +87,6 @@ jobs:
          git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
          git fetch origin "${{github.event.repository.name}}-next"
          git switch -c "${{github.event.repository.name}}-next" "origin/${{github.event.repository.name}}-next"
-         git checkout stash --    
+         git checkout stash module.json    
          git commit -m "${{github.event.release.tag_name}} manifest"
          git push -f
