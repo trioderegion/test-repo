@@ -18,7 +18,7 @@ jobs:
         run: |
          raw=$(git branch -r --contains ${{ github.ref }})
          branch=${raw/origin\/}
-         echo ::set-env name=BRANCH::$branch
+         echo ##[set-output name=branch;]$branch
       # Substitute the Manifest and Download URLs in the module.json
       # for a FULL RELEASE
       - name: Substitute Manifest and Download Links For Versioned Ones
