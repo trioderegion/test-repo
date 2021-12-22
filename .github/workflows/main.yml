@@ -79,8 +79,8 @@ jobs:
       - name: Prepare repository
         if: "github.event.release.prerelease"
         run: |
-         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-         git pull -f "${{github.event.repository.name}}-next"
+         git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
+         git pull -f origin "${{github.event.repository.name}}-next"
          git checkout origin "${{github.event.repository.name}}-next"
          git add module.json
          git commit -m "2.0.!25 manifest"
