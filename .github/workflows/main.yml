@@ -42,7 +42,8 @@ jobs:
         run: |
          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
          git checkout "${{github.event.repository.name}}-next"
-         git commit -am "Automated report"
+         git add --all
+       
       # Pre-release: commit module.json so latest download is updated
       - name: Update Live Pre-release Manifest
         if: "github.event.release.prerelease"
