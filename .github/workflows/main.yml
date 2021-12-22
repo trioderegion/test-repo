@@ -37,7 +37,9 @@ jobs:
           url: https://github.com/${{github.repository}}
           manifest: https://raw.githubusercontent.com/${{github.repository}}/${{github.event.repository.name}}-next/module.json
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
-          
+     
+      - name: Prepare repository
+        run: git checkout "${{github.event.repository.name}}-next"
       # Pre-release: commit module.json so latest download is updated
       - name: Update Live Pre-release Manifest
         if: "github.event.release.prerelease"
