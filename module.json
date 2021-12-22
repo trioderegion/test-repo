@@ -2,7 +2,7 @@
     "name": "warpgate",
     "title": "Warp Gate",
     "description": "Utility module for spawning and modifying tokens.",
-    "version": "2.0.!3",
+    "version": "2.0.!4",
     "author": "honeybadger",
     "authors": [
         {
@@ -28,7 +28,7 @@
     "socket": true,
     "url": "https://github.com/trioderegion/test-repo",
     "manifest": "https://raw.githubusercontent.com/trioderegion/test-repo//module.json",
-    "download": "https://github.com/trioderegion/test-repo/releases/download/2.0.!3/module.zip",
+    "download": "https://github.com/trioderegion/test-repo/releases/download/2.0.!4/module.zip",
     "minimumCoreVersion": "0.8.5",
     "compatibleCoreVersion": "0.8.9"
 }
