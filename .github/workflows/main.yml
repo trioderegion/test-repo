@@ -39,7 +39,10 @@ jobs:
           download: https://github.com/${{github.repository}}/releases/download/${{github.event.release.tag_name}}/module.zip
      
       - name: Prepare repository
-        run: git checkout "${{github.event.repository.name}}-next"
+        run: |
+         git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
+         git checkout "${{github.event.repository.name}}-next"
+         git commit -am "Automated report"
       # Pre-release: commit module.json so latest download is updated
       - name: Update Live Pre-release Manifest
         if: "github.event.release.prerelease"
