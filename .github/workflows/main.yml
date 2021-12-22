@@ -79,11 +79,13 @@ jobs:
       - name: Prepare repository
         if: "github.event.release.prerelease"
         run: |
-         git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
-         git status
          git add module.json
+         git stash
          git clean -f
-         git pull --rebase origin "${{github.event.repository.name}}-next"
+         git remote set-url origin "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY"
+         git pull origin "${{github.event.repository.name}}-next"
          git checkout origin "${{github.event.repository.name}}-next"
-         git commit -m "2.0.!25 manifest"
+         git stash pop
+         git checkout --theirs module.json      
+         git commit -m "${{github.event.release.tag_name}} manifest"
          git push -f
