@@ -41,7 +41,7 @@ jobs:
       - name: Prepare repository
         run: |
          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/$GITHUB_REPOSITORY
-         git checkout "${{github.event.repository.name}}-next"
+         git checkout origin "${{github.event.repository.name}}-next"
          git add --all
        
       # Pre-release: commit module.json so latest download is updated
