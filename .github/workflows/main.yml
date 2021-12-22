@@ -49,7 +49,7 @@ jobs:
          git checkout "${{github.event.repository.name}}-next"
          git add module.json
          git commit -m "${{github.event.release.tag_name}} manifest"
-         git push
+         git push --rebase
       
       - name: Update Live Pre-release Manifest
         if: "github.event.release.prerelease"
