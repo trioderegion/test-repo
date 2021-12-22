@@ -46,7 +46,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           message: '${{github.event.release.tag_name}} preview manifest'
-          branch: '${{github.event.repository.name}}-next'
+          branch: 'refs/heads/{{$github.event.repository.name}}-next'
       # Create a zip file with all files required by the module to add to the release
       - run: zip -r ./module.zip module.json LICENSE scripts/ lang/ 
 
